@@ -1,19 +1,15 @@
-'use client'
-import {FC, FormEvent, useEffect, useReducer, useState} from 'react';
+import {FC, FormEvent, useEffect, useReducer} from 'react';
 import { useForm } from '../../hooks';
 import { Task } from '../task';
 import { v4 as uuidv4 } from 'uuid';
 import { todoReducer } from '../../helpers';
 
-
 const initialState: [] = [];
 
-
-
-
-export const EnterTask: FC = () => {
+const EnterTask: FC = () => {
 
   console.log(typeof window)
+  console.log('hola')
   
   const init = () => {
     if (typeof window !== "undefined") {
@@ -104,7 +100,7 @@ export const EnterTask: FC = () => {
   }
 
   return (
-    <>
+    <div>
       <div className='enter-task'>
           <form className='enter-task-form' onSubmit={handleSubmit}>
               <label className='enter-task-form-label' htmlFor="task">Ingresa una tarea</label> <br />
@@ -128,6 +124,9 @@ export const EnterTask: FC = () => {
         CompleteTodo={CompleteTodo} 
         OpenModal={OpenModal}
       />
-    </>
+    </div>
   )
 }
+
+
+export default EnterTask;

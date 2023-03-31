@@ -1,6 +1,5 @@
 import { Todo } from "../interfaces";
 
-
 export const todoReducer = (initialState: Todo[] = [], action: any) => {
   
     switch (action.type) {

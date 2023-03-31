@@ -1,3 +1,4 @@
+'use client'
 import { FC, FormEvent } from 'react';
 import { useForm } from '../../hooks/useForm';
 
@@ -25,7 +26,7 @@ export const EditTask: FC<Props> = ({id, todo, date, modal, UpdateTodo, OpenModa
   }
 
   return (
-    <>
+    <div>
       {
         (modal)
         &&
@@ -46,6 +47,6 @@ export const EditTask: FC<Props> = ({id, todo, date, modal, UpdateTodo, OpenModa
           <button onClick={() => OpenModal(id)} className='edit-task-close'>X</button>
         </div>
       }
-    </>
+    </div>
   )
 }

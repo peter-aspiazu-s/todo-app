@@ -1,4 +1,5 @@
-import {FC, useState} from 'react'
+'use client'
+import {FC} from 'react'
 import { EditTask } from '../editTask';
 import { Todo } from '../../interfaces';
 
@@ -18,7 +19,7 @@ export const Task: FC<Props> = ({ todos = [], onDeleteTodo, UpdateTodo, Complete
     <div className='task'>
         <div className='task-container'>
             {
-                todos.map(({id, task, done, modal, date}) => (
+                todos?.map(({id, task, done, modal, date}) => (
                     <div className={ done ? 'task-done task-item' : 'task-undone task-item'} key={id}>
                         <div className='task-item-description'>
                             <div className='task-item-text'>
