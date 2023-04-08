@@ -14,11 +14,13 @@ const TodoApp: NextPage = () => {
   // 2 uncomplete todos
   const [todosFilter, setTodosFilter] = useState(0);
 
+  const [numberTask, setNumberTask] = useState(0);
+
   return (
     <div className="todo-app">
-      <Header setTodosFilter={setTodosFilter} />
+      <Header setTodosFilter={setTodosFilter} numberTask={numberTask} />
 
-      <EnterTask todosFilter={todosFilter} />
+      <EnterTask todosFilter={todosFilter} setNumberTask={setNumberTask} />
 
     </div>
   )

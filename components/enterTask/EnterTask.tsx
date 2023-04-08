@@ -12,14 +12,17 @@ const init = () => {
 
 interface Props {
   todosFilter: number;
+  setNumberTask: (numberTask: number) => void;
 }
 
-const EnterTask: FC<Props> = ({ todosFilter }) => {
+const EnterTask: FC<Props> = ({ todosFilter, setNumberTask }) => {
 
   const [todos, dispatchTodo] = useReducer(todoReducer, initialState, init);
 
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos));
+
+    setNumberTask(todos.length)
   }, [todos])
   
 

@@ -2,9 +2,10 @@ import {FC} from 'react';
 
 interface Props {
     setTodosFilter: (todosFilter: number) => void;
+    numberTask: number;
   }
 
-export const Header: FC<Props> = ({ setTodosFilter }) => {
+export const Header: FC<Props> = ({ setTodosFilter, numberTask }) => {
 
     const handleOption = (e: any) => {
         console.log(e.target.value)
@@ -23,7 +24,7 @@ export const Header: FC<Props> = ({ setTodosFilter }) => {
   return (
     <div className='header'>
 
-        <div>Task</div>
+        <div>Task {`(${numberTask})`}</div>
         <select id="task" onChange={handleOption}>
             <option value="Todas mis tareas">Todas mis tareas</option>
             <option value="Mis tareas completadas">Tareas completadas</option>
