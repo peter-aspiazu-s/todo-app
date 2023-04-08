@@ -10,7 +10,7 @@ export const todoReducer = (initialState: Todo[] = [], action: any) => {
             return initialState.filter(todo => todo.id !== action.payload);
 
         case '[TODO] - Update Todo':
-            return initialState.map(todo => todo.id === action.payload.id ? action.payload : todo)
+            return initialState.map(todo => ({...todo, task: todo.id === action.payload.id ? action.payload.task : todo.task}))
 
         case '[TODO] - Complete Todo':
             return initialState.map(todo => ({...todo, done: todo.id === action.payload ? !todo.done : todo.done}))

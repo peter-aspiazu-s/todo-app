@@ -1,4 +1,4 @@
-import {FC, FormEvent, useEffect, useReducer} from 'react';
+import {FC, FormEvent, useEffect, useReducer, useState} from 'react';
 import { useForm } from '../../hooks';
 import { Task } from '../task';
 import { v4 as uuidv4 } from 'uuid';
@@ -6,21 +6,20 @@ import { todoReducer } from '../../helpers';
 
 const initialState: [] = [];
 
-const EnterTask: FC = () => {
-
-  console.log(typeof window)
-  console.log('hola')
-  
-  const init = () => {
-    if (typeof window !== "undefined") {
+const init = () => {
       return (JSON.parse(localStorage.getItem('todos')!) || [])
-    }
-  }
+}
+
+interface Props {
+  todosFilter: number;
+}
+
+const EnterTask: FC<Props> = ({ todosFilter }) => {
 
   const [todos, dispatchTodo] = useReducer(todoReducer, initialState, init);
 
   useEffect(() => {
-    localStorage.setItem('todos', JSON.stringify(todos))
+    localStorage.setItem('todos', JSON.stringify(todos));
   }, [todos])
   
 
@@ -28,7 +27,7 @@ const EnterTask: FC = () => {
     { task: ''}
   );
 
-  const { task }: any = formState;
+  const { task } = formState;
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -103,7 +102,6 @@ const EnterTask: FC = () => {
     <div>
       <div className='enter-task'>
           <form className='enter-task-form' onSubmit={handleSubmit}>
-              <label className='enter-task-form-label' htmlFor="task">Ingresa una tarea</label> <br />
               <input 
                   className='enter-task-form-input-text' 
                   type="text" 
@@ -111,9 +109,8 @@ const EnterTask: FC = () => {
                   name='task'
                   value={task}
                   onChange={onInputChange} 
-                  placeholder='Tarea...'
+                  placeholder='Ingresa una tarea...'
               />
-              <input className='enter-task-form-input-submit' type="submit" value="Agregar tarea" />
           </form>
       </div>
 
@@ -123,6 +120,7 @@ const EnterTask: FC = () => {
         UpdateTodo={UpdateTodo} 
         CompleteTodo={CompleteTodo} 
         OpenModal={OpenModal}
+        todosFilter={todosFilter}
       />
     </div>
   )

@@ -1,29 +1,35 @@
 import {FC} from 'react';
 
-export const Header: FC = () => {
+interface Props {
+    setTodosFilter: (todosFilter: number) => void;
+  }
+
+export const Header: FC<Props> = ({ setTodosFilter }) => {
+
+    const handleOption = (e: any) => {
+        console.log(e.target.value)
+
+        if(e.target.value === 'Todas mis tareas'){
+            setTodosFilter(0);
+        }
+        if(e.target.value === 'Mis tareas completadas'){
+            setTodosFilter(1);
+        }
+        if(e.target.value === 'Mis tareas incompletas'){
+            setTodosFilter(2);
+        }
+    }
+
   return (
     <div className='header'>
-        <div className='animate__animated animate__flipInX'>
-            Todo App
-        </div>
 
-        <div 
-            className='header-box-wave'
-            style={{height: "100px", overflow: "hidden"}} 
-        >
-                <svg 
-                    viewBox="0 0 500 150" 
-                    preserveAspectRatio="none" 
-                    style={{
-                        height: "100%", 
-                        width: "100%",
-                    }}>
-                        <path 
-                            d="M-1.46,106.78 C212.41,162.88 272.23,158.95 501.92,100.88 L500.00,149.60 L-0.00,149.60 Z" 
-                            style={{stroke: "none", fill: "#fff"}}>
-                        </path>
-                </svg>
-        </div>
+        <div>Task</div>
+        <select id="task" onChange={handleOption}>
+            <option value="Todas mis tareas">Todas mis tareas</option>
+            <option value="Mis tareas completadas">Tareas completadas</option>
+            <option value="Mis tareas incompletas">Tareas incompletas</option>
+        </select>
+
     </div>
   )
 }

@@ -18,11 +18,13 @@ export const EditTask: FC<Props> = ({id, todo, date, modal, UpdateTodo, OpenModa
   });
 
   
-  const {task}: any = formState;
+  
+  const {task} = formState;
   
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     UpdateTodo(id, task);
+    OpenModal(id);
   }
 
   return (
@@ -30,21 +32,21 @@ export const EditTask: FC<Props> = ({id, todo, date, modal, UpdateTodo, OpenModa
       {
         (modal)
         &&
-        <div className='edit-task'>
+        <div className='edit-task animate__animated animate__fadeIn animate__faster'>
           <div className='edit-task-container'>
             <form className='edit-task-form' onSubmit={handleSubmit}>
               <textarea 
                 className='edit-task-textarea' 
-                rows={10} 
+                rows={5} 
                 name="task" 
                 value={task} 
                 onChange={(e) => onInputChange(e)}></textarea>
-              <input className='edit-task-input-date' type="date" />
+              {/* <input className='edit-task-input-date' type="date" /> */}
               <input className='edit-task-input-submit' type="submit" value="Cambiar" />
             </form>
+            <button onClick={() => OpenModal(id)} className='edit-task-close'>X</button>
           </div>
 
-          <button onClick={() => OpenModal(id)} className='edit-task-close'>X</button>
         </div>
       }
     </div>
