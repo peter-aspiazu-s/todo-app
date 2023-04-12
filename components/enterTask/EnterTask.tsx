@@ -1,13 +1,16 @@
-import {FC, FormEvent, useEffect, useReducer, useState} from 'react';
+import {FC, FormEvent, useEffect, useReducer} from 'react';
 import { useForm } from '../../hooks';
 import { Task } from '../task';
 import { v4 as uuidv4 } from 'uuid';
 import { todoReducer } from '../../helpers';
+import moment from 'moment';
+import 'moment/locale/es';
+
 
 const initialState: [] = [];
 
 const init = () => {
-      return (JSON.parse(localStorage.getItem('todos')!) || [])
+  return (JSON.parse(localStorage.getItem('todos')!) || [])
 }
 
 interface Props {
@@ -42,7 +45,8 @@ const EnterTask: FC<Props> = ({ todosFilter, setNumberTask }) => {
       task,
       done: false,
       modal: false,
-      date: new Date().getTime(),
+      // date: new Date().toLocaleDateString('es-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"}),
+      date: moment().calendar(),
     }
 
     const action = {

@@ -14,13 +14,20 @@ interface Props {
 
 export const Task: FC<Props> = ({ todos = [], onDeleteTodo, UpdateTodo, CompleteTodo, OpenModal, todosFilter }) => {
 
+    console.log(todos.map(t => t.date))
+
   return (
     <div className='task'>
         <div className='task-container'>
             {
                 todosFilter === 0 &&
                 todos?.map(({id, task, done, modal, date}) => (
-                    <div className={ done ? 'task-done task-item' : 'task-item'} key={id}>
+                    <div 
+                        className={ 
+                            done 
+                            ? 'task-done task-item animate__animated animate__fadeIn' 
+                            : 'task-item animate__animated animate__fadeIn'
+                        } key={id}>
                         
                         <input 
                             className='task-input-done'
@@ -33,7 +40,7 @@ export const Task: FC<Props> = ({ todos = [], onDeleteTodo, UpdateTodo, Complete
                             <div className='task-item-text'>
                                 {task}
                             </div>
-                            {/* <div className='task-item-date'>Creación: {date}</div> */}
+                            <div className='task-item-date'>Creación: {`${date}`}</div>
                         </div>
 
                         <div className='task-container-button'>
@@ -76,7 +83,12 @@ export const Task: FC<Props> = ({ todos = [], onDeleteTodo, UpdateTodo, Complete
                 todosFilter === 1 &&
                 todos.filter(todo => todo.done)
                 .map(({id, task, done, modal, date}) => (
-                    <div className={ done ? 'task-done task-item' : 'task-item'} key={id}>
+                    <div 
+                        className={ 
+                            done 
+                            ? 'task-done task-item animate__animated animate__fadeIn' 
+                            : 'task-item animate__animated animate__fadeIn'
+                        } key={id}>
                         
                         <input 
                             className='task-input-done'
@@ -89,7 +101,7 @@ export const Task: FC<Props> = ({ todos = [], onDeleteTodo, UpdateTodo, Complete
                             <div className='task-item-text'>
                                 {task}
                             </div>
-                            {/* <div className='task-item-date'>Creación: {date}</div> */}
+                            <div className='task-item-date'>Creación: {`${date}`}</div>
                         </div>
 
                         <div className='task-container-button'>
@@ -132,7 +144,12 @@ export const Task: FC<Props> = ({ todos = [], onDeleteTodo, UpdateTodo, Complete
                 todosFilter === 2 &&
                 todos.filter(todo => !todo.done)
                 .map(({id, task, done, modal, date}) => (
-                    <div className={ done ? 'task-done task-item' : 'task-item'} key={id}>
+                    <div 
+                        className={ 
+                            done 
+                            ? 'task-done task-item animate__animated animate__fadeIn' 
+                            : 'task-item animate__animated animate__fadeIn'
+                        } key={id}>
                         
                         <input 
                             className='task-input-done'
@@ -145,7 +162,7 @@ export const Task: FC<Props> = ({ todos = [], onDeleteTodo, UpdateTodo, Complete
                             <div className='task-item-text'>
                                 {task}
                             </div>
-                            {/* <div className='task-item-date'>Creación: {date}</div> */}
+                            <div className='task-item-date'>Creación: {`${date}`}</div>
                         </div>
 
                         <div className='task-container-button'>
