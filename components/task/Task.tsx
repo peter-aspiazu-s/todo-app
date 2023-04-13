@@ -25,8 +25,8 @@ export const Task: FC<Props> = ({ todos = [], onDeleteTodo, UpdateTodo, Complete
                     <div 
                         className={ 
                             done 
-                            ? 'task-done task-item animate__animated animate__fadeIn' 
-                            : 'task-item animate__animated animate__fadeIn'
+                            ? 'task-done task-item' 
+                            : 'task-item'
                         } key={id}>
                         
                         <input 
@@ -86,8 +86,8 @@ export const Task: FC<Props> = ({ todos = [], onDeleteTodo, UpdateTodo, Complete
                     <div 
                         className={ 
                             done 
-                            ? 'task-done task-item animate__animated animate__fadeIn' 
-                            : 'task-item animate__animated animate__fadeIn'
+                            ? 'task-done task-item' 
+                            : 'task-item'
                         } key={id}>
                         
                         <input 
@@ -147,8 +147,8 @@ export const Task: FC<Props> = ({ todos = [], onDeleteTodo, UpdateTodo, Complete
                     <div 
                         className={ 
                             done 
-                            ? 'task-done task-item animate__animated animate__fadeIn' 
-                            : 'task-item animate__animated animate__fadeIn'
+                            ? 'task-done task-item' 
+                            : 'task-item'
                         } key={id}>
                         
                         <input 
