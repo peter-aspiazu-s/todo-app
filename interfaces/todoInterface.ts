@@ -1,7 +1,9 @@
 export interface Todo {
     id: any;
-    task: string;
+    title: string;
+    description: string;
     done: boolean;
     modal: boolean;
+    options: boolean;
     date: Date;
 }

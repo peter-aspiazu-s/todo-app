@@ -27,7 +27,7 @@
 }
 
 .task-done{
-    background-color: #4aff88;
+    background-color: #e3f1fc;
     transition: all .3s;
 }
 
@@ -36,13 +36,26 @@
     margin-top: 15px;
 }
 
-.task-item-description{
+.task-container-description{
     width: 60%;
     margin-top: 12px;
 }
 
 .task-item-text{
+    margin-bottom: 10px;
+}
+
+.task-item-description{
+    width: 100%;
+    height: 0px;
+    opacity: 0;
+}
+
+.task-item:hover .task-item-description{
+    height: auto;
     margin-bottom: 20px;
+    opacity: 1;
+    transition: all .6s ease-in-out;
 }
 
 .task-item-date{
@@ -53,13 +66,48 @@
 .task-container-button{
     width: 30%;
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-end;
+    position: relative;
 }
 
 .task-container-button svg{
     width: 25px;
 }
 
+.task-container-options{
+    position: absolute;
+    top: 40px;
+    right: 0;
+    width: 100px;
+    background-color: aliceblue;
+    box-shadow: 0px 0px 5px 1px #ccc;
+    animation-name: fadeInOptions;
+    animation-duration: top right;
+    animation-timing-function: ease-in;
+    animation-duration: 0.3s;
+    z-index: 1;
+}
+
+.task-container-options div{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px;
+}
+
+.task-container-options div svg{
+    margin-right: 10px;
+}
+
+@keyframes fadeInOptions{
+    from{
+        opacity: 0;
+    }
+
+    to{
+        opacity: 1;
+    }
+}
 
 @media screen and (min-width: 768px){
     .task-container{
@@ -73,16 +121,25 @@
         cursor: pointer;
     }
 
-    .task-item-description{
+    .task-container-description{
         font-size: 17px;
     }
 
     .task-container-button svg{
         transition: all .3s;
+        cursor: pointer;
     }
 
     .task-container-button svg:hover{
-        cursor: pointer;
         transform: scale(1.1);
+    }
+
+    .task-container-options div{
+        cursor: pointer;
+    }
+
+    .task-container-options div:hover{
+        background-color: #e3f1fc;
+        transition: all .3s;
     }
 }

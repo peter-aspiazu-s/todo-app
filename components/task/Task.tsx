@@ -1,27 +1,34 @@
 'use client'
-import {FC} from 'react'
+import {FC, useState} from 'react'
 import { EditTask } from '../editTask';
 import { Todo } from '../../interfaces';
 
 interface Props {
     todos: Todo[];
     onDeleteTodo: (id: string) => void;
-    UpdateTodo: (id: string, task: string) => void;
+    UpdateTodo: (id: string, title: string, description: string) => void;
     CompleteTodo: (id: string) => void;
     OpenModal: (id: string) => void;
+    OpenOptions: (id: string) => void;
     todosFilter: number;
 }
 
-export const Task: FC<Props> = ({ todos = [], onDeleteTodo, UpdateTodo, CompleteTodo, OpenModal, todosFilter }) => {
+export const Task: FC<Props> = ({ todos = [], onDeleteTodo, UpdateTodo, CompleteTodo, OpenModal, OpenOptions, todosFilter }) => {
 
     console.log(todos.map(t => t.date))
+
+
+    const handleClickOptionsEdit = (id: string) => {
+        OpenModal(id)
+        OpenOptions(id)
+    }
 
   return (
     <div className='task'>
         <div className='task-container'>
             {
                 todosFilter === 0 &&
-                todos?.map(({id, task, done, modal, date}) => (
+                todos?.map(({id, title, description, done, modal, options, date}) => (
                     <div 
                         className={ 
                             done 
@@ -36,9 +43,12 @@ export const Task: FC<Props> = ({ todos = [], onDeleteTodo, UpdateTodo, Complete
                             onClick={() => CompleteTodo(id)}
                         ></input>
 
-                        <div className='task-item-description'>
+                        <div className='task-container-description'>
                             <div className='task-item-text'>
-                                {task}
+                                {title}
+                            </div>
+                            <div className='task-item-description'>
+                                {description}
                             </div>
                             <div className='task-item-date'>Creación: {`${date}`}</div>
                         </div>
@@ -50,26 +60,37 @@ export const Task: FC<Props> = ({ todos = [], onDeleteTodo, UpdateTodo, Complete
                                 height="48" 
                                 viewBox="0 96 960 960" 
                                 width="48"
-                                fill='#0075ff'
-                                onClick={() => OpenModal(id)}
+                                onClick={() => OpenOptions(id)}
                             >
-                                    <path d="M180 876h44l443-443-44-44-443 443v44Zm614-486L666 262l42-42q17-17 42-17t42 17l44 44q17 17 17 42t-17 42l-42 42Zm-42 42L248 936H120V808l504-504 128 128Zm-107-21-22-22 44 44-22-22Z"/>
+                                    <path d="M479.858 896Q460 896 446 881.858q-14-14.141-14-34Q432 828 446.142 814q14.141-14 34-14Q500 800 514 814.142q14 14.141 14 34Q528 868 513.858 882q-14.141 14-34 14Zm0-272Q460 624 446 609.858q-14-14.141-14-34Q432 556 446.142 542q14.141-14 34-14Q500 528 514 542.142q14 14.141 14 34Q528 596 513.858 610q-14.141 14-34 14Zm0-272Q460 352 446 337.858q-14-14.141-14-34Q432 284 446.142 270q14.141-14 34-14Q500 256 514 270.142q14 14.141 14 34Q528 324 513.858 338q-14.141 14-34 14Z"/>
                             </svg>
-                            <svg 
-                                xmlns="http://www.w3.org/2000/svg" 
-                                height="48" 
-                                viewBox="0 96 960 960" 
-                                width="48"
-                                fill='#94030b'
-                                onClick={() => onDeleteTodo(id)}
-                            >
-                                    <path d="M261 936q-24.75 0-42.375-17.625T201 876V306h-41v-60h188v-30h264v30h188v60h-41v570q0 24-18 42t-42 18H261Zm438-630H261v570h438V306ZM367 790h60V391h-60v399Zm166 0h60V391h-60v399ZM261 306v570-570Z"/>
-                            </svg>
+
+                            {
+                                options &&
+                                <>
+                                    <div className='task-container-options'>
+                                        <div onClick={() => handleClickOptionsEdit(id)}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 96 960 960" width="48" fill='#0075ff'>
+                                                <path d="M180 876h44l443-443-44-44-443 443v44Zm614-486L666 262l42-42q17-17 42-17t42 17l44 44q17 17 17 42t-17 42l-42 42Zm-42 42L248 936H120V808l504-504 128 128Zm-107-21-22-22 44 44-22-22Z"/>
+                                            </svg>
+                                            editar
+                                        </div>
+                                        <div onClick={() => onDeleteTodo(id)}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 96 960 960" width="48" fill='#94030b'>
+                                                <path d="M261 936q-24.75 0-42.375-17.625T201 876V306h-41v-60h188v-30h264v30h188v60h-41v570q0 24-18 42t-42 18H261Zm438-630H261v570h438V306ZM367 790h60V391h-60v399Zm166 0h60V391h-60v399ZM261 306v570-570Z"/>
+                                            </svg>
+                                            eliminar
+                                        </div>
+                                    </div>
+                                </>
+                            }
+
                         </div>
 
                         <EditTask 
                             id={id} 
-                            todo={task} 
+                            titleTask={title} 
+                            descriptionTask={description} 
                             date={date} 
                             modal={modal} 
                             OpenModal={OpenModal} 
@@ -82,7 +103,7 @@ export const Task: FC<Props> = ({ todos = [], onDeleteTodo, UpdateTodo, Complete
             {
                 todosFilter === 1 &&
                 todos.filter(todo => todo.done)
-                .map(({id, task, done, modal, date}) => (
+                .map(({id, title, description, done, modal, options, date}) => (
                     <div 
                         className={ 
                             done 
@@ -97,9 +118,12 @@ export const Task: FC<Props> = ({ todos = [], onDeleteTodo, UpdateTodo, Complete
                             onClick={() => CompleteTodo(id)}
                         ></input>
 
-                        <div className='task-item-description'>
+                        <div className='task-container-description'>
                             <div className='task-item-text'>
-                                {task}
+                                {title}
+                            </div>
+                            <div className='task-item-description'>
+                                {description}
                             </div>
                             <div className='task-item-date'>Creación: {`${date}`}</div>
                         </div>
@@ -111,26 +135,37 @@ export const Task: FC<Props> = ({ todos = [], onDeleteTodo, UpdateTodo, Complete
                                 height="48" 
                                 viewBox="0 96 960 960" 
                                 width="48"
-                                fill='#0075ff'
-                                onClick={() => OpenModal(id)}
+                                onClick={() => OpenOptions(id)}
                             >
-                                    <path d="M180 876h44l443-443-44-44-443 443v44Zm614-486L666 262l42-42q17-17 42-17t42 17l44 44q17 17 17 42t-17 42l-42 42Zm-42 42L248 936H120V808l504-504 128 128Zm-107-21-22-22 44 44-22-22Z"/>
+                                    <path d="M479.858 896Q460 896 446 881.858q-14-14.141-14-34Q432 828 446.142 814q14.141-14 34-14Q500 800 514 814.142q14 14.141 14 34Q528 868 513.858 882q-14.141 14-34 14Zm0-272Q460 624 446 609.858q-14-14.141-14-34Q432 556 446.142 542q14.141-14 34-14Q500 528 514 542.142q14 14.141 14 34Q528 596 513.858 610q-14.141 14-34 14Zm0-272Q460 352 446 337.858q-14-14.141-14-34Q432 284 446.142 270q14.141-14 34-14Q500 256 514 270.142q14 14.141 14 34Q528 324 513.858 338q-14.141 14-34 14Z"/>
                             </svg>
-                            <svg 
-                                xmlns="http://www.w3.org/2000/svg" 
-                                height="48" 
-                                viewBox="0 96 960 960" 
-                                width="48"
-                                fill='#94030b'
-                                onClick={() => onDeleteTodo(id)}
-                            >
-                                    <path d="M261 936q-24.75 0-42.375-17.625T201 876V306h-41v-60h188v-30h264v30h188v60h-41v570q0 24-18 42t-42 18H261Zm438-630H261v570h438V306ZM367 790h60V391h-60v399Zm166 0h60V391h-60v399ZM261 306v570-570Z"/>
-                            </svg>
+
+                            {
+                                options &&
+                                <>
+                                    <div className='task-container-options'>
+                                        <div onClick={() => handleClickOptionsEdit(id)}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 96 960 960" width="48" fill='#0075ff'>
+                                                <path d="M180 876h44l443-443-44-44-443 443v44Zm614-486L666 262l42-42q17-17 42-17t42 17l44 44q17 17 17 42t-17 42l-42 42Zm-42 42L248 936H120V808l504-504 128 128Zm-107-21-22-22 44 44-22-22Z"/>
+                                            </svg>
+                                            editar
+                                        </div>
+                                        <div onClick={() => onDeleteTodo(id)}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 96 960 960" width="48" fill='#94030b'>
+                                                <path d="M261 936q-24.75 0-42.375-17.625T201 876V306h-41v-60h188v-30h264v30h188v60h-41v570q0 24-18 42t-42 18H261Zm438-630H261v570h438V306ZM367 790h60V391h-60v399Zm166 0h60V391h-60v399ZM261 306v570-570Z"/>
+                                            </svg>
+                                            eliminar
+                                        </div>
+                                    </div>
+                                </>
+                            }
+
                         </div>
 
                         <EditTask 
                             id={id} 
-                            todo={task} 
+                            titleTask={title} 
+                            descriptionTask={description} 
                             date={date} 
                             modal={modal} 
                             OpenModal={OpenModal} 
@@ -143,7 +178,7 @@ export const Task: FC<Props> = ({ todos = [], onDeleteTodo, UpdateTodo, Complete
             {
                 todosFilter === 2 &&
                 todos.filter(todo => !todo.done)
-                .map(({id, task, done, modal, date}) => (
+                .map(({id, title, description, done, modal, options, date}) => (
                     <div 
                         className={ 
                             done 
@@ -158,9 +193,12 @@ export const Task: FC<Props> = ({ todos = [], onDeleteTodo, UpdateTodo, Complete
                             onClick={() => CompleteTodo(id)}
                         ></input>
 
-                        <div className='task-item-description'>
+                        <div className='task-container-description'>
                             <div className='task-item-text'>
-                                {task}
+                                {title}
+                            </div>
+                            <div className='task-item-description'>
+                                {description}
                             </div>
                             <div className='task-item-date'>Creación: {`${date}`}</div>
                         </div>
@@ -172,26 +210,37 @@ export const Task: FC<Props> = ({ todos = [], onDeleteTodo, UpdateTodo, Complete
                                 height="48" 
                                 viewBox="0 96 960 960" 
                                 width="48"
-                                fill='#0075ff'
-                                onClick={() => OpenModal(id)}
+                                onClick={() => OpenOptions(id)}
                             >
-                                    <path d="M180 876h44l443-443-44-44-443 443v44Zm614-486L666 262l42-42q17-17 42-17t42 17l44 44q17 17 17 42t-17 42l-42 42Zm-42 42L248 936H120V808l504-504 128 128Zm-107-21-22-22 44 44-22-22Z"/>
+                                    <path d="M479.858 896Q460 896 446 881.858q-14-14.141-14-34Q432 828 446.142 814q14.141-14 34-14Q500 800 514 814.142q14 14.141 14 34Q528 868 513.858 882q-14.141 14-34 14Zm0-272Q460 624 446 609.858q-14-14.141-14-34Q432 556 446.142 542q14.141-14 34-14Q500 528 514 542.142q14 14.141 14 34Q528 596 513.858 610q-14.141 14-34 14Zm0-272Q460 352 446 337.858q-14-14.141-14-34Q432 284 446.142 270q14.141-14 34-14Q500 256 514 270.142q14 14.141 14 34Q528 324 513.858 338q-14.141 14-34 14Z"/>
                             </svg>
-                            <svg 
-                                xmlns="http://www.w3.org/2000/svg" 
-                                height="48" 
-                                viewBox="0 96 960 960" 
-                                width="48"
-                                fill='#94030b'
-                                onClick={() => onDeleteTodo(id)}
-                            >
-                                    <path d="M261 936q-24.75 0-42.375-17.625T201 876V306h-41v-60h188v-30h264v30h188v60h-41v570q0 24-18 42t-42 18H261Zm438-630H261v570h438V306ZM367 790h60V391h-60v399Zm166 0h60V391h-60v399ZM261 306v570-570Z"/>
-                            </svg>
+
+                            {
+                                options &&
+                                <>
+                                    <div className='task-container-options'>
+                                        <div onClick={() => handleClickOptionsEdit(id)}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 96 960 960" width="48" fill='#0075ff'>
+                                                <path d="M180 876h44l443-443-44-44-443 443v44Zm614-486L666 262l42-42q17-17 42-17t42 17l44 44q17 17 17 42t-17 42l-42 42Zm-42 42L248 936H120V808l504-504 128 128Zm-107-21-22-22 44 44-22-22Z"/>
+                                            </svg>
+                                            editar
+                                        </div>
+                                        <div onClick={() => onDeleteTodo(id)}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 96 960 960" width="48" fill='#94030b'>
+                                                <path d="M261 936q-24.75 0-42.375-17.625T201 876V306h-41v-60h188v-30h264v30h188v60h-41v570q0 24-18 42t-42 18H261Zm438-630H261v570h438V306ZM367 790h60V391h-60v399Zm166 0h60V391h-60v399ZM261 306v570-570Z"/>
+                                            </svg>
+                                            eliminar
+                                        </div>
+                                    </div>
+                                </>
+                            }
+
                         </div>
 
                         <EditTask 
                             id={id} 
-                            todo={task} 
+                            titleTask={title} 
+                            descriptionTask={description} 
                             date={date} 
                             modal={modal} 
                             OpenModal={OpenModal} 

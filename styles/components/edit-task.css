@@ -28,13 +28,13 @@
     align-items: center;
 }
 
-.edit-task-textarea{
+.edit-task-input, .edit-task-textarea{
     width: 100%;
     margin-bottom: 20px;
     border: 0;
     border-bottom: 1px solid #3e3e3e;
     outline: 0;
-    padding: 10px 0 0 10px;
+    padding: 10px 10px 0 10px;
     background-color: aliceblue;
 }
 
@@ -68,9 +68,10 @@
 
     .edit-task-container{
         width: 500px;
-        height: 300px;
+        height: 400px;
         border: 1px solid #eee;
         box-shadow: 1px 1px 10px 3px #ccc;
+        position: relative;
     }
 }
 
@@ -80,7 +81,7 @@
         width: 700px;
     }
 
-    .edit-task-textarea{
+    .edit-task-input, .edit-task-textarea{
         font-size: 18px;
     }
 

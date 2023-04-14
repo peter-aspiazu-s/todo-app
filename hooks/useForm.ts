@@ -1,6 +1,6 @@
 import { ChangeEvent, useState } from "react"
 
-export const useForm = ( initialForm = {task: ''} ) => {
+export const useForm = ( initialForm = {title: '', description: ''} ) => {
 
   const [formState, setFormState] = useState(initialForm)
 

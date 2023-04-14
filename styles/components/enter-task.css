@@ -15,34 +15,39 @@
     padding-left: 30px;
 }
 
-.enter-task-form-input-text{
-    border: 0;
-    border-bottom: 1px solid #3e3e3e;
-    height: 50px;
-    outline: 0;
-    padding-left: 10px;
+.enter-task-button{
     width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    background-color: aliceblue;
+    border: 1px solid #d7eafb;
+    border-radius: 50px;
+    color: #0075ff;
+}
+
+.enter-task-button svg{
+    fill: #0075ff;
+    width: 30px;
+    margin-right: 5px;
 }
 
 @media screen and (min-width: 425px){
 
-    .enter-task-form-input-text{
-        font-size: 15px;
+    .enter-task-button{
+        width: 350px;
     }
 }
 
-@media screen and (min-width: 768px){
+@media screen and (min-width: 1024px){
     
-    .enter-task-form-input-text{
-        width: 400px;
-        font-size: 20px;
+    .enter-task-button{
+        cursor: pointer;
     }
-}
-
-@media screen and (min-width: 1440px){
     
-    .enter-task-form-input-text{
-        width: 600px;
-        font-size: 25px;
+    .enter-task-button:hover{
+        background-color: #e3f1fc;
+        transition: all .3s;
     }
 }
