@@ -25,6 +25,14 @@ export const todoReducer = (initialState: Todo[] = [], action: any) => {
         case '[TODO] - Open Options':
             return initialState.map(todo => ({...todo, options: todo.id === action.payload ? !todo.options : todo.options}))
             
+        case '[TODO] - MOVE_ITEM':{
+            const { itemId, oldIndex, newIndex } = action.payload;
+            const newState = [...initialState];
+            const [removed] = newState.splice(oldIndex, 1);
+            newState.splice(newIndex, 0, removed);
+            return newState;
+        } 
+        
         default:
             return initialState;
     }

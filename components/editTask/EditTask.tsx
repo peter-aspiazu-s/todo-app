@@ -6,7 +6,7 @@ interface Props{
   id: string;
   titleTask: string; 
   descriptionTask: string; 
-  date: Date;
+  date: string;
   UpdateTodo: (id: string, title: string, description: string) => void;
   modal: boolean;
   OpenModal: (id: string) => void;

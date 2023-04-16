@@ -8,7 +8,6 @@ interface Props {
 export const Header: FC<Props> = ({ setTodosFilter, numberTask }) => {
 
     const handleOption = (e: any) => {
-        console.log(e.target.value)
 
         if(e.target.value === 'Todas mis tareas'){
             setTodosFilter(0);

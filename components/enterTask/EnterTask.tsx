@@ -2,9 +2,7 @@ import {FC, FormEvent, useEffect, useReducer} from 'react';
 import { useForm } from '../../hooks';
 import { Task } from '../task';
 import { v4 as uuidv4 } from 'uuid';
-import { todoReducer } from '../../helpers';
-import moment from 'moment';
-import 'moment/locale/es';
+import { getTimeElapsedString, todoReducer } from '../../helpers';
 
 
 const initialState: [] = [];
@@ -46,8 +44,7 @@ const EnterTask: FC<Props> = ({ todosFilter, setNumberTask }) => {
       done: false,
       modal: false,
       options: false,
-      // date: new Date().toLocaleDateString('es-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"}),
-      date: moment().calendar(),
+      date: getTimeElapsedString(new Date())
     }
 
     const action = {
@@ -70,8 +67,8 @@ const EnterTask: FC<Props> = ({ todosFilter, setNumberTask }) => {
 
   const UpdateTodo = (id: string, title: string, description: string) => {
 
-    if( title.length <= 1 ) return;
-    if( description.length <= 1 ) return;
+    // if( title.length <= 1 ) return;
+    // if( description.length <= 1 ) return;
 
     const action = {
       type: '[TODO] - Update Todo',
@@ -116,6 +113,19 @@ const EnterTask: FC<Props> = ({ todosFilter, setNumberTask }) => {
     dispatchTodo(action);
   }
 
+  const handleDragEnd = (id: string, sIndex: number, dIndex: number) => {
+    const action = {
+      type: '[TODO] - MOVE_ITEM',
+      payload: {
+        itemId: id,
+        oldIndex: sIndex,
+        newIndex: dIndex
+      }
+    }
+
+    dispatchTodo(action);
+  }
+
   return (
     <div>
       <div className='enter-task'>
@@ -139,6 +149,7 @@ const EnterTask: FC<Props> = ({ todosFilter, setNumberTask }) => {
         OpenModal={OpenModal}
         OpenOptions={OpenOptions}
         todosFilter={todosFilter}
+        handleDragEnd={handleDragEnd}
       />
     </div>
   )

@@ -5,5 +5,5 @@ export interface Todo {
     done: boolean;
     modal: boolean;
     options: boolean;
-    date: Date;
+    date: string;
 }
